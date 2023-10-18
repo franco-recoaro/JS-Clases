@@ -264,4 +264,126 @@ let aprendiendo = x => x+=7;
 let resultadoAprendiendo=aprendiendo(10);
 console.log(resultadoAprendiendo);
 
+// EJERCICIO 9 - CONVERTIR CADA UNA DE LAS SIGUIENTES FUNCIONES EN ARROY FUNCTION
+//COPIAR EL ARRAY CARRITO DEL FINAL DEL ARCHIVO 04-arrays.JS
+//UTILIZAR SOME, REDUCE, FILTER, INCLUDES
 
+let carrito1 = [
+    {
+        nombre: "TV",
+        precio: 750
+    },
+    {
+        nombre: "Tablet",
+        precio: 350
+    },
+    {
+        nombre: "Movil",
+        precio: 550
+    },
+    {
+        nombre: "PC",
+        precio: 1750
+    }
+];
+
+
+
+
+// SOME: ME BUSCA ESE VALOR DENTRO DEL ARRAY Y DA VALOR BOOLEANO
+let resultado;
+
+resultado = carrito1.some(function (producto) {
+    return producto.nombre === "Tablet"
+});
+
+console.log("RESULTADO DE FUNCION SOME IDEAL", resultado);
+
+//AHORA CON ARROY FUNCTION
+resultado = carrito1.some(producto=>producto.nombre==="Tablet")
+console.log("RESULTADO DE FUNCION SOME IDEAL CON FUNCION FLECHA", resultado);
+
+
+
+
+//REDUCE: REDUCE VA RECORRIENDO EL ARRAY Y VA RETORNANDO EN UNA VARIABLE LA SUMA DE LOS VALORES
+// COMO SABER EL TOTAL DEL CARRITO
+
+resultado = carrito1.reduce(function (total, producto) { // PARA ITERAR
+    // TOTAL, PRODUCTO: PARAMETROS DE LA FUNCION
+    return total + producto.precio
+},0); //DEBE COMENZAR EN 0 YA QUE DEBEMOS SUMAR TODOS LOS PRODUCTOS DESDE 0 - SE USA EN REDUCE PARA SABER EL TOTAL
+console.log("USO DE REDUCE", resultado);
+
+//FUNCTION ARROY DE REDUCE
+resultado = carrito1.reduce((total,producto) => total+producto.precio, 0); //SE QUITAN LAS LLAVES YA QUE HAY UNA SOLA LINEA DE CUERPO QUE ES TOTAL+PRODUCTO.PRECIO
+console.log(resultado);
+
+
+
+
+//FILTER, PARA FILTRAR
+
+resultado = carrito1.filter(function (producto) {
+    return producto.precio > 400
+});
+console.log("USO DE FILTER", resultado);
+
+//FUNCTION ARROY DE FILTER
+
+resultado = carrito1.filter(producto => producto.precio > 400); //QUITAMOS PALABRA FUNCTION, DEJAMOS EL PARAMETRO "PRODUCTO" YA QUE ES 1 SOLO
+                                                                //QUITAMOS LLAVES Y COLOCAMOS LA FLECHA 
+console.log("USO DE FILTER CON ARROW FUNCTION", resultado);
+
+/************************************************************/
+/*EJERCICIOS EN CLASE*/
+function sumaDeclaracion(n1,n2,n3){
+    console.log(n1+n2+n3);
+}
+sumaDeclaracion(1,2,3)
+
+let sumaExpresion=function (n1,n2,n3){
+    console.log(n1+n2+n3)
+}
+sumaExpresion(1,2,3)
+
+let sumarFlecha = (n1,n2,n3) => n1+n2+n3;
+console.log(sumarFlecha(1,2,3));
+
+/* crear una funcion que busque elementos de un array numeros y ponerla con expresion, declaracion y arrow */
+
+numeros=[10,20,30,40]
+
+function buscaExpresion(array,x){
+    return array.includes(x);
+}
+console.log(buscaExpresion(numeros,10))
+
+let buscarDeclaracion = function(array,x){
+   return array.includes(x);
+}
+console.log(buscarDeclaracion(numeros,60));
+
+let buscarFlecha = (array,x) => array.includes(x)
+console.log(buscarFlecha(numeros,30));
+
+/* CREAR UNA FUNCION DE FLECHA QUE DADOS 2 PARAMETROS ME DE 10 VECES LA SUMA DE AMBOS*/
+
+let sumaParametros = (n1,n2) => (n1+n2)*10;
+console.log(sumaParametros(10,20))
+
+/* CREAR UNA FUNCION DE FLECHA QUE DADOS 2 PARAMETROS me indique el numero de caracteres de los dos*/
+
+let conteoCaracteres = (text1,text2) => (text1.length + text2.length)
+console.log(conteoCaracteres("casa","carta"));
+
+
+/* CREAR UNA FUNCION DE FLECHA QUE QUITE EL ULTIMO ELEMENTO DEL FINAL DE UN ARRAY NUEVO QUE CREEMOS CADA VEZ QUE LA LLAMAMOS*/
+
+let videojuegos=["fifa", "gta", "lol", "csgo"]
+
+let quitaElemento = (array) => array.pop();
+
+quitaElemento(videojuegos);
+
+console.table(videojuegos);
