@@ -1,0 +1,121 @@
+"use strict"; //CORRER JS EN MODO ESTRICTO
+
+
+//SINTAXIS DE OBJETO
+
+let producto = { 
+
+    nombreProducto: "Fernet",
+    precio: 15,
+    disponible: true
+}
+
+//FORMA DE IR PUNTUALMENTE A UNA PROPIEDAD DEL OBJETO
+
+console.log("MI PRIMER OBJETO producto:", producto.precio);
+console.log(`MI PRIMER OBJETO CON TEMPLATE STRING: ${producto.precio}`);
+
+//PARA CREAR UNA NUEVA PROPIEDAD QUE NO ESTE EN EL PRODUCTO COLOCAMOS "." 
+//Y A LA CATEGORIA NUEVA LE DAMOS UN VALOR CON "="
+
+producto.categoria = "bebidas" 
+
+console.log("NUEVA CATEGORIA",producto)
+
+//PARA MODIFICAR LA PROPIEDAD, SELECCIONAMOS EL OBJETO Y POSTERIORMENTE COLOCAMOS "." Y LA PROPIEDAD A MODIFICAR.
+//LUEGO COLOCAMOS "=" Y EL VALOR NUEVO.
+
+producto.precio=12;
+
+//PARA ELIMINAR PROPIEDADES UTILIZAMOS delete
+
+delete producto.disponible;
+
+console.log("ELIMINAMOS PROPIEDAD DISPONIBLE A producto: ",producto);
+
+//ACCEDER A LA PROPIEDAD(PRECIO) DEL OBJETO(PRODUCTO) Y LO ALMACENAMOS EN UNA VARIABLE NUEVA LLAMADA precioProducto
+
+let precioProducto = producto.precio;
+console.log("CREAMOS VARIABLE A PARTIR DE LA PROPIEDAD PRECIO de producto: ", precioProducto);
+
+//EJERCICIO
+
+let nombreProducto = producto.nombreProducto;
+console.log("NOMBRE DEL PRODUCTO EN UNA NUEVA VARIABLE LLAMADA nombreProducto es :", nombreProducto);
+
+//DESTRUCTURING = CREA UNA VARIABLE TOMANDO LA PROPIEDAD DEL PRODUCTO Y EXTRAE EL VALOR TODO EN UN SOLO PASO
+// EJEMPLO = DESTRUCTURING AL PRECIO
+
+let {precio} = producto; //LE PONE SI O SI EL NOMBRE DE LA PROPIEDAD A LA NUEVA VARIABLE CREADA, 
+                         //NO SE PUEDE UTILIZAR DESTRUCTURING Y COLOCAR OTRO NOMBRE A LA VARIABLE DIFERENTE A LA PROPIEDAD
+console.log(precio);
+
+//EJERCICIO = CREAR UN OBJETO QUE SE LLAME PLAYA Y HACER UN DESTRUCTURING A LAS PROPIEDADES
+let playa = {
+    nombrePlaya : "Salerno",
+    ubicacion: "Italia",
+    recomendable: true,
+    temperaturaAgua: 23
+}
+
+let {nombrePlaya,ubicacion,recomendable,temperaturaAgua} = playa;
+
+console.log(`EN LA PLAYA ${nombrePlaya} QUE ESTA EN ${ubicacion} EL AGUA ESTA A ${temperaturaAgua}. TE LA RECOMIENDO: ${recomendable}`);
+
+////////METODOS DE OBJETOS//////////
+
+//SIEMPRE PARA UTILIZARLOS DEBEMOS COLOCAR PRIMERO Object.ELMETODO(NOMBRE DEL OBJETO)
+
+//METODO FREEZE
+
+/* CON EL METODO Object.freeze
+    NO PODEMOS AÑADIR PROPIEDADES
+    NO PODEMOS BORRAR PROPIEDADES
+    NO PODEMOS MODIFICAR PROPIEDADES */
+
+//SI QUEREMOS CONGELAR UN OBJETO PARA QUE NO SE PUEDAN MODIFICAR LAS PROPIEDADES, HACEMOS USO DE object.freeze(NOMBRE DEL OBJETO);
+
+Object.freeze(producto);
+
+//AGREGAMOS UNA NUEVA PROPIEDAD AL OBJETO PRODUCTO PARA PROBAR EL FREEZE SI INTENTAMOS MODIFICARLO (SALE ERROR)
+
+//producto.congelado = "intentamos congelarlo"; 
+
+console.log("INTENTAMOS AÑADIR UNA PROPIEDAD TRAS EL FREEZE", producto);
+
+//COMO SABER SI UN OBJETO ESTA CONGELADO (FREEZE) - UTILIZAMOS Object.isFrozen(NOMBRE DEL OBJETO)
+
+console.log("ESTA CONGELADO??", Object.isFrozen(producto));
+
+
+//METODO SEAL
+
+/*CON EL MÉTODO Object.Seal
+    NO PODEMOS AÑADIR PROPIEDADES
+    NO PODEMOS BORRAR PROPIEDADES
+    SI PODEMOS MODIFICAR PROPIEDADES */
+
+//EJERCICIO
+
+let medidas = {
+    peso: 10,
+    alto: 15,
+    ancho: 20,
+    profundidad: 25
+}
+
+Object.seal(medidas);
+
+medidas.peso=10;
+console.log(`EL NUEVO PESO ES DE: ${medidas.peso}`);
+
+
+//METODO SPREAD/REAST OPERATOR
+
+//EL FIN ES SUMAR LAS PROPIEDADS DE DOS O MAS OBJETOS EN UNO NUEVO
+//LA SINTAXIS ES COLOCAR TRES PUNTOS "..." ANTES DEL OBJETO A UNIR 
+
+let nuevoProducto = {...producto, ...medidas};
+console.log("NUEVO OBJETO CON SPREAD OPERATOR :", nuevoProducto);
+
+//EL OBJETIVO DEL SPREAD ES CREAR UN OBJETO SIN MODIFICAR LOS ANTERIORES
