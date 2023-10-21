@@ -151,6 +151,7 @@ return x*y; //AQUI NO MUESTRA NADA POR PANTALLA COMO CONSOLE.LOG, CUANDO LLAME E
 
 let resultadoMultiplicar=multiplicar(2,3) //ALOJAMOS LA FUNCION EN UNA VARIABLE Y LE DAMOS VALOR A LOS PARAMETROS QUE QUISIERAMOS
                                         //ESTA MISMA VARIABLE VA A TENER EL VALOR QUE APLIQUEMOS EN LOS PARAMETROS
+                                        //AHORA ESA VARIABLE resultadoMultiplicar aloja el resultado de multiplicar(2,3)
 console.log(resultadoMultiplicar);
 
 /************************/
