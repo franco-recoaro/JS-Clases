@@ -200,3 +200,16 @@ function media (n){
                                    //Y COLOCAMOS +1 PARA QUE CUENTE EL 0 COMO VALOR.
 }
 media(18); //TENEMOS 19 VALORES PORQUE SE CUENTA EL 0
+
+//MISMA FUNCION DECLARADA CON FOR
+
+let acumulacion3= 0;
+
+function media2(n){
+    for(m=0;m<=n;m++){
+        acumulacion3=acumulacion3+m;
+    }
+    console.log(acumulacion3/n+1);
+}
+
+media2(5);
