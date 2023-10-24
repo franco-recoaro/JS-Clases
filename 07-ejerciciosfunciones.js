@@ -12,16 +12,16 @@ console.log(resultadoInvertir);
 
 
 
-let cadena = "Hola"
+let cadenaF = ""
 function invertir2(cadena) {
     let cadenaFinal = "";
     for (let i = cadena.length - 1; i >= 0; i--) { //INDICO QUE EL INDICE COMIENCE EN EL ULTIMO CARACTER YA QUE LE DOY .LENGTH-1
+                                                // i-- INDICA QUE VAYA DE FORMA DECRECIENTE, YA QUE COMIENZA EN EL ULTIMO INDICE
         // CUANDO EL INDICE SEA MENOR A 0 SE TERMINA Y DEJA DE CONTAR CARACTERES
-        // EL i-- INDICA QUE VAYA DE FORMA DECRECIENTE POR EL VALOR A DAR EN LA FUNCION
-        cadenaFinal += cadena[i];
+        cadenaF += cadena[i]; //INDICA QUE CADA VEZ QUE RECORRA EL ARRAY, VAYA CONCATENANDO LOS CARACTERES EN LA VARIABLE "cadenaFinal"
 
     }
-    return cadenaFinal    //HAGO QUE LA FUNCION RETORNE EL VALOR FINAL DE LA VARIABLE CADENAFINAL
+    return cadenaF    //HAGO QUE LA FUNCION RETORNE EL VALOR FINAL DE LA VARIABLE CADENAFINAL
 }
 console.log(invertir2("Hola"));
 
@@ -37,12 +37,10 @@ console.log(resultadoConcatenar);
 //EJERCICIO 3: función que determine si una cadena contiene una letra. - F: CONTIENE - P: CADENA, LETRA
 
 function contiene(cadena, letra) {
-    let textoVerificado
-    return textoVerificado = cadena.includes(letra)
-}
 
-textoVerificado = contiene("franco esta Aqui", "r")
-console.log(textoVerificado);
+    return cadena.includes(letra)
+}
+console.log(contiene("Hola Franco", "k"));
 
 //EJERCICIO 4: función que encuentre el número más grande en un array. - F: MAXNUM - P: ARRAY
 arrayNum = [1, 2, 3, 4, 5, 6]
@@ -50,9 +48,12 @@ arrayNum = [1, 2, 3, 4, 5, 6]
 function maxNum(array) {
     let maximoArray = array[0]; // Empieza asumiendo que el primer elemento es el máximo
     for (let i = 0; i < array.length; i++) { // Empieza desde el segundo elemento
-        if (array[i] > maximoArray) {
-            maximoArray = array[i];
-        }
+
+        if (array[i] > maximoArray){
+            maximoArray = array[i]; //Solo se actualizará la variable "maximoArray" si en el recorrido del array pasado por parametro
+        }                           //encuentra un numero mayor ya al almacenado en la nueva variable
+
+
     }
     return maximoArray;
 }
@@ -117,32 +118,27 @@ soloNumeros(arrayNumeros);
 //EJERCICIO 8: función que genere un número aleatorio entre N1 y N2. - F: NUMALEATORIO - P: N1,N2
 
 function numAleatorio(n1, n2) {
-    let min = Math.ceil(n1);
-    let max = Math.floor(n2);
-    return Math.floor((min + max) / 2)
+    // Generar un número aleatorio entre n1 y n2 (incluyendo n1 y n2)
+    return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
 }
 
-let valorAleatorio = numAleatorio(100, 99)
+let valorAleatorio = numAleatorio(20, 99);
 console.log(valorAleatorio);
 
 //EJERCICIO 9: función que calcule el área de un triángulo con base y altura como parámetros. Area=base*altura/2 - F: AREATRIAGULO - P: BASE,ALTURA
 
 function areaTriangulo(base, altura) {
-    let area = (base * altura) / 2;
-    return area
+    return (base * altura) / 2;
 }
-calculoArea = areaTriangulo(10, 2)
-console.log(calculoArea);
+console.log(areaTriangulo(10,5));
 
 // EJERCICIO 10: función que convierta grados Celsius a Fahrenheit. - F: GRADOS - P: CELSIUS
 
 function grados(celcius) {
-    let gradosConvertidos = (celcius * 9 / 5) + 32;
-    return gradosConvertidos
+    return (celcius * 9 / 5) + 32;
 }
 
-let celcius = grados(20)
-console.log(celcius);
+console.log(grados(20));
 
 
 //EJERCICIO 11: función que determine si un año es bisiesto. - F: BISIESTO - P: DIAS
@@ -154,7 +150,7 @@ function bisiesto(dias) {
     }
 }
 
-bisiesto(365)
+bisiesto(366)
 
 
 //EJERCICIO 12: función que cuente la cantidad de vocales en una cadena. - F: VOCALES - P: TEXTO
@@ -182,7 +178,7 @@ let palabras = (texto) => {
         let palabra = texto[i];
 
         if (palabra === " ") {
-            contador++; //CADA VEZ QUE VEA UN ESEPACIO, HACEMOS QUE SE SUME AL CONTADOR CON "contador++"
+            contador++; //CADA VEZ QUE VEA UN ESPACIO, HACEMOS QUE SE SUME AL CONTADOR CON "contador++"
         }
     }
     return contador; //RETORNAMOS EL VALOR FINAL DE CONTADOR 
@@ -225,8 +221,8 @@ console.log(eliminarDuplicados(arrayConDup));
 let arraySinOrdenar = [1,4,3,7,9,5];
 
 function ordenarArray(array){
-    let arrayOrdenado= array.sort()
-    return arrayOrdenado
+    let arrayOrdenado= array.sort(function(a,b){return a-b}) // {return a-b} FORMA PREDETERMINADA PARA QUE CUENTE LOS VALORES DE FORMA ASCENDENTE
+    return arrayOrdenado                                     // {return b-a} FORMA PREDETERMINADA PARA QUE CUENTE LOS VALORES DE FORMA DESCENDENTE
 }
 console.log(ordenarArray(arraySinOrdenar));
 
@@ -234,12 +230,11 @@ console.log(ordenarArray(arraySinOrdenar));
 
 function tablaMultiplicar(numero){
 for(i=0; i<=10; i++){
-   let tablaNumero =  numero*i;
-    console.log(tablaNumero);
+   let tablaNumero = numero*i;
+   console.log(`${numero} x ${i} = ${tablaNumero}`);
 }
 }
-
-console.table(tablaMultiplicar(8));
+tablaMultiplicar(2);
 
 
 //EJERCICIO 17: función que tome un número del 1 al 12 y devuelva el nombre del mes correspondiente utilizando una declaración switch
@@ -280,20 +275,35 @@ nombreMes(2)
 //EJERCICIO 18: función que determine si una contraseña es segura basándose en longitud>8, mayúsculas y minusculas números
 //F: CONTRASEÑASEGURA - P: CONTRASEÑA
 
-function contraseñaSegura(contraseña) {
-    if (contraseña.length >= 8){
-        if (contraseña.match(/[A-Z]/)) {
-            if (contraseña.match(/[a-z]/)) { 
-                if (contraseña.match(/\d/)) {
+function contraseñaSegura(contraseña){
+    if (contraseña.length >= 8 &&
+        contraseña.match(/[A-Z]/) &&
+             contraseña.match(/[a-z]/) &&
+                 contraseña.match(/\d/)) {
                     console.log("Tu contraseña ha sido correctamente ingresada");
-                }
-            }
-        }
-    }else{
+                }else{
     console.log("Debes colocar correctamente los requisitos de la contraseña");
-}
-}
+}}
+
+contraseñaSegura("F")
 
 
 //EJERCICIO 19: función que tome una cadena y reemplace todas las letras 'LETRA1' por 'LETRA2'. F: REEMPLAZAR - P: LETRA1, LETRA2
 
+function reemplazar(cadena, letra1, letra2) {
+    let nuevaCadena = "";
+    for (let i = 0; i < cadena.length; i++) {
+        if (cadena[i] === letra1) { //EL [i] INDICA QUE POR CADA ELEMENTO QUE RECORRA EL INDICE , ESTE COMPARE SI LA LETRA INDICADA EN "letra1" ESTÉ EN EL TEXTO DADO A "cadena"
+            nuevaCadena += letra2; //SI ESTA CONDICION lo reemplazamos por letra2 en nuevaCadena.
+        } else {
+            nuevaCadena += cadena[i]; //Si el carácter no es igual a letra1, simplemente lo agregamos a nuevaCadena.
+
+        }
+    }
+    return nuevaCadena; //Finalmente, la función devuelve la nuevaCadena resultante con todas las sustituciones.
+
+}
+
+let cadenaOriginal = "Esto es un ejemplo de reemplazo de letras";
+let cadenaModificada = reemplazar(cadenaOriginal, "e", "a");
+console.log(cadenaModificada);
