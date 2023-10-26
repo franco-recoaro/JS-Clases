@@ -147,14 +147,15 @@ app(); //LLAMAMOS A LA FUNCION PARA QUE SE EJECUTE SIEMPRE Y CUANDO LA ANTERIOR 
 //EJERCICIO 4: CREAR UNA FUNCION QUE ME DESCARGUE LOS PEDIDOS, Y ME DE UNA RESPUESTA A LOS 3 SEGUNDOS
 
 function descargaPedidos(){
-    return new Promise( ()  =>{
-     console.log("Descargando pedidos.....espere");   
+    return new Promise( (resolve)  => {
+     console.log("Descargando pedidos espere");   
      
      setTimeout(() => { //PARA SIMULAR EL TIEMPO DE LA RESPUESTA A LA DESCARGA DE LA BASE DE DATOS
-        console.log("Los pedidos fueron descargados")
+        resolve("Los pedidos fueron descargados");
     }, 3000)
     })
 }
 //DONDE COLOCAMOS LOS CONSOLE LOG PODEMOS PONER LO QUE QUERRAMOS, OTRA FUNCION, UN CONDICIONAL, ETC
-
-descargaPedidos();
+descargaPedidos().then((mensaje) => {
+    console.log(mensaje);
+  }); //COLOCO .THEN PARA MOSTRAR LA RESOLUCION POSITIVA DE LA FUNCION
