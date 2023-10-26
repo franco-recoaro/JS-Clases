@@ -176,6 +176,7 @@ class ITV extends coche {
             return ("No debes hacer la ITV");
         }
     };
+    edadCoche(){super.edadCoche()} //Forma de heredar un metodo (funcion) creada en el anterior constructor
 };
 
 const coche2 = new ITV(2015, 11254, 2021);
