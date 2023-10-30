@@ -47,7 +47,7 @@ carrito.forEach(producto => console.log(producto, producto.nombre));
 
 const arrayMap = carrito.map(producto => producto.nombre);
 
-console.log(arrayMap);
+console.log(arrayMap);w
 
 /*************************THIS**************************/
 //NOS PERMITE REFERIRME A CUALQUIER PROPIEDAD DENTRO DEL OBJETO
