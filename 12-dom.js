@@ -110,3 +110,5 @@ enlaceEJ.classList.add("enlace")
 
 navPrincipal.appendChild(enlaceEJ)
 console.log(enlaceEJ);
+
+//EJERCICIO 4
