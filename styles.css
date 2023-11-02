@@ -1,4 +1,9 @@
-section{
-    background-image: url(./aboutUs.jpg);
-    height: 100px;
+#cartasCurso{
+    height: 300px;
+    background-color: brown;
+}
+
+.divPrincipal{
+    border-radius: 20px;
+    border: 1px solid black;
 }

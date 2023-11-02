@@ -128,13 +128,57 @@ function leertexto(e) {
 
 const formulario = document.querySelector("form");
 
-formulario.addEventListener("submit", function(evento){
-    evento.preventDefault(); 
+formulario.addEventListener("submit", function (evento) {
+    evento.preventDefault();
     console.log("Enviando Formulario...")
+    return datos //CON EL RETURN DEVUELVE EL OBJETO ACTUALIZADO
 });
+
+console.log(datos);
 
 //SUBMIT PARA FORMULARIOS, ESTÁ ASOCIADO AL FORMULARIO EN GENERAL
 //CLICK PARA OTROS BOTONES
 
 //preventDefault() PREVIENE EL SALTO DE LINEA AL CLICKEAR EN UN BOTON
+
+//EJERCICIO 5: CREAR UN ARCHIVO.JSON 
+
+async function obtenerDatos() {
+
+    const resultado = await fetch("tucarreradigital.json"); //VOY A TENER RESPUESTA TIPO JSON // TIPO DE CONSULTA ESTANDAR // SE ACCEDE SIEMEPRE ASI
+
+    const datos = await resultado.json(); //datos pasa a alojar la respuesta positiva de la interaccion con la base datos, que es un array de objetos del empleados.json.
+
+    const { tucarreradigital } = datos; //DESTRUCTURING PARA CREAR VARIABLES A PARTIR DE LAS PROPIEDADES // 
+    //PARA HACERLO DEBO COLOCAR EL NOMBRE DEL JSON ENTRE LLAVES PARA TOMAR LAS PROPIEDADES QUE TIENE DENTRO
+
+    console.log(tucarreradigital); //EMPLEADOS PASA A ALOJAR LA RESPUESTA POSITIVA DE LA INTERACCION DE LA INTERACCION CON LA BASE DE DATOS, QUE ES UN ARRAY DE OBJETOS DEL EMPLEADOS.JSON 
+
+    tucarreradigital.forEach(datosCursos => {
+        console.log(datosCursos.id);
+        console.log(datosCursos.zonas);
+        console.log(datosCursos.ciudades);
+        console.log(datosCursos.enlaceZonas);
+        console.log(datosCursos.enlaceCursos);
+
+        const cartasCurso = document.querySelector("#cartasCurso");
+        const tituloCarta = document.createElement("p");
+        const tituloZonas = document.createElement("p");
+        const enlaceZonas = document.createElement("a");
+        const enlaceCurso = document.createElement("a");
+
+        cartasCurso.appendChild(tituloCarta, tituloZonas, enlaceCurso, enlaceZonas);
+
+        for (const informacion of datosCursos) {
+            tituloCarta.textContent= (informacion.zonas);
+            tituloZonas.textContent = (informacion.ciudades)
+            enlaceCurso.textContent = (informacion.enlaceCursos)
+            enlaceZonas .textContent = (informacion.enlaceZonas)
+        }
+
+    });
+
+};
+
+obtenerDatos();
 
