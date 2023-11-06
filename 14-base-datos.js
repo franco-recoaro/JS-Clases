@@ -200,7 +200,7 @@ SELECT * FROM servicios WHERE precio BETWEEN 10 AND 16; //INLCUIDOS
 
 *******************************FUNCIONES AGREGADORAS*******************************
 
-*********CONTADOR********
+*****************CONTADOR****************
 
 SELECT COUNT (id), fecha
 FROM reservas
@@ -209,14 +209,14 @@ GROUP BY fecha DESC;
 //ME CONTARÁ TODOS LOS ID QUE TENGAN LA MISMA FECHA Y ME LOS ORDENARÁ DE MAYOR A MENOR
 
 
-*********SUMA************
+*****************SUMA********************
 
 SELECT SUM(precio) AS totalServicios FROM servicios; 
 //totalServicios ES UN ALIAS QUE USAMOS DE MANERA VIRTUAL
 //SE CREA EN ESE MOMENTO PARA MOSTRARLO Y NADA MÁS, PERO NO EXISTE EN NUESTRA BASE DE DATOS
 
 
-*********MÍNIMO/MÁXIMO*******
+*****************MÍNIMO/MÁXIMO***************
 
 SELECT MIN(precio) AS precioMenor FROM servicios;
 SELECT MAX(precio) AS precioMayor FROM servicios;
@@ -230,7 +230,7 @@ SELECT * FROM servicios WHERE nombre LIKE "Corte%";
     %Corte      FINALIZA CON CORTE
     %Corte%     CONTIENE CORTE, DA IGUAL QUE ESTÉ AL INICIO, AL FINAL O EN MEDIO
 
-*********CONCATENAR COLUMNAS (UNIR)*********
+*****************CONCATENAR COLUMNAS (UNIR)*****************
 
 SELECT CONCAT(nombre," ",apellidos) AS nombreCompleto FROM clientes;
 //ME CREA DE NUEVO UN ALIAS VIRTUAL
@@ -251,38 +251,9 @@ SELECT * FROM reservas WHERE fecha="2023-03-29" AND id>3;
 //EL OPERADOR AND ME PERMITE APLICAR MÚLTIPLES CONDICIONES
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    *******************
-
-
-
+******************************************************************************************************************
     REGLAS DE NORMALIZACION
     OPTIMIZAR BASE DE DATOS EN FUNCION A UNAS REGLAS YA DEFINIDAS
-
-    PONER DIAPOSITIVA26
 
         HAY QUE APLICARLAS EN ORDEN
 
