@@ -56,14 +56,15 @@ DEBEN TENER UN IDENTIFICADOR UNICO (ID)
 DEBEMOS INDICARLE EL TIPO DE DATO
 EL TIPO DE DATO QUE VAYA A USAR LO CONSULTO
 
-SHOW TABLES; //DESCRIBE servicios; ME DA INFORMACIÓN DE LA TABLA
+SHOW TABLES; 
+
+DESCRIBE servicios;   //ME DA INFORMACIÓN DE LA TABLA
 
 YA SABEMOS CREAR BASE DE DATOS Y TABLAS, VAMOS A VER
 LAS OPERACIONES QUE PODEMOS HACER CON LOS DATOS DE LAS TABLAS
 
 
-
-/*************************************************CRUD*************************************************************
+*************************************************CRUD*************************************************************
 
 CREATE, READ, UPDATE,DELETE
 
@@ -126,15 +127,6 @@ MOSTRAR TABLA
 SELECT * FROM servicios; //SI AÑADO UN SERVICIO, CONTINUA POR EL ULTIMO, NO ME RELLENA LOS REGISTROS VACIOS
 
 
-
-
-
-
-
-
-
-
-
 /**************************************************************************************************************************  
 
 *******************COMO MODIFICAR LAS TABLAS BASE DE DATOS************************
@@ -146,23 +138,25 @@ DESCRIBE servicios;
 ALTER TABLE servicios ADD descripción VARCHAR(100) NOT NULL;
 
 SELECT * FROM servicios;
-LOS REGISTROS QUE TENEMOS NO TIENEN DESCRIPCIÓN
+//LOS REGISTROS QUE TENEMOS NO TIENEN DESCRIPCIÓN
 
 ************************MODIFICAR COLUMNA*************************
 
 ALTER TABLE servicios CHANGE descripcion nuevonombre VARCHAR(50) NOT NULL; 
 //PODEMOS CAMBIAR EL NOMBRE Y LA EXTENSION SOLAMENTE
             
-EL TIPO DE DATO NO LO PUEDO CAMBIAR
-SI ERA UN TIPO VARCHAR, NO LO PUEDO CAMBIAR A UN TIPO INT
+//EL TIPO DE DATO NO LO PUEDO CAMBIAR
+//SI ERA UN TIPO VARCHAR, NO LO PUEDO CAMBIAR A UN TIPO INT
 
 DESCRIBE servicios;
 
 ************************BORRAR COLUMNA*************************
 
 ALTER TABLE servicios DROP COLUMN borrar
+
 //ELIMINAR TABLAS COMPLETAS DE MI BASE DE DATOS
 //MOSTRAMOS PRIMERO LAS TABLAS
+
 SHOW TABLES;
     
 ************************BORRAR TABLAS************************
@@ -194,13 +188,35 @@ CREATE TABLE reservas (
 
 SELECT * FROM servicios WHERE precio>12 ORDER BY precio;
 
+//PARA ORDENAR SE COLOCA SIEMPRE ORDER BY y la funcionalidad
+
+//EJERCICIO 1: MOSTRAR LOS ALUMNOS QUE CUMPLEN AÑOS EN DICIEMBRE
+
+SELECT * FROM alumnos WHERE MONTH(fechanacimiento) = 12 ORDER BY fechanacimiento ASC;
+
+WHERE MONTH(fechanacimiento) = 12 //ES LA RESTRICCION QUE SE COLOCA PARA QUE SOLAMENTE APAREZCAN LOS ALUMNOS QUE NACIERON EN DICIEMBRE
+ORDER BY fechanacimiento  //NOMBRO NUEVAMENTE LA COLUMNA QUE QUIERO ORDENAR DE FORMA ASCENDENTE
+//CADA VEZ QUE COLOQUE UNA ORDEN, CASI SIEMPRE SE DEBE RENOMBRAR LA COLUMNA A MODIFICAR.
+
+
 *******************************SELECCIONAR DATOS ENTRE DOS VALORES*************************
 
-SELECT * FROM servicios WHERE precio BETWEEN 10 AND 16; //INLCUIDOS
+SELECT * FROM servicios WHERE precio BETWEEN 10 AND 16; //INCLUIDOS
 
-*******************************FUNCIONES AGREGADORAS*******************************
+//EJERCICIO 2 MOSTRAR LOS ALBUMNOS QUE NACIONERON ENTRE 2002 Y 2003
 
-*****************CONTADOR****************
+SELECT * FROM alumnos WHERE YEAR(fechanacimiento) BETWEEN 2002 AND 2003;
+
+
+
+***************************************************FUNCIONES AGREGADORAS***************************************************
+
+ME DEVUELVE RESULTADOS DE MIS TABLAS Y ME PERMITE REALIZAR UNA OPERACION
+CADA VEZ QUE UTILIZO UNA FUNCION SE COLOCA ENTRE PARENTESIS LA COLUMNA A OPERAR
+
+*************************CONTADOR************************
+
+ME DEVUELVE TODOS LOS REGISTROS QUE TENGAN UNA CONDICION Y ME LOS CUENTA
 
 SELECT COUNT (id), fecha
 FROM reservas
@@ -208,21 +224,30 @@ GROUP BY fecha DESC;
 
 //ME CONTARÁ TODOS LOS ID QUE TENGAN LA MISMA FECHA Y ME LOS ORDENARÁ DE MAYOR A MENOR
 
+//EJERCICIO 3: CONTAR EL NUMERO DE ALUMNOS QUE HAY POR AÑO
 
-*****************SUMA********************
+1) SELECT YEAR(fechanacimiento), 2) COUNT(id) FROM alumnos 3) GROUP BY YEAR(fechanacimiento) 4) ORDER BY YEAR(fechanacimiento
+) DESC;
+
+1RO SELECCIONO SOLAMENTE LOS AÑOS DE LA COLUMNA FECHANACIMIENTO - EN VEZ DE ANTES QUE SELECCIONABAMOS *(ALL)
+2DO REALIZO EL CONTADOR DE LOS ID DE LOS ALUMNOS EN LA TABLA ALUMNOS PARA SABER LA CANTIDAD DE ALUMNOS EN CADA GRUPO
+3RO LOS AGRUPO DEPENDIENDO EL AÑO DE NACIMIENTO DE CADA ALUMNO NOMBRANDO YEAR(Y AQUI LA COLUMNA DE FECHAS)
+4TO ORDENO LOS AÑOS DE NACIMIENTO POR ORDEN DESCENDIENTE NOMBRANDO YEAR(Y AQUI LA COLUMNA DE FECHAS)
+
+*****************************SUMA********************************
 
 SELECT SUM(precio) AS totalServicios FROM servicios; 
-//totalServicios ES UN ALIAS QUE USAMOS DE MANERA VIRTUAL
+//totalServicios ES UNA VARIABLE QUE USAMOS DE MANERA VIRTUAL
 //SE CREA EN ESE MOMENTO PARA MOSTRARLO Y NADA MÁS, PERO NO EXISTE EN NUESTRA BASE DE DATOS
 
 
-*****************MÍNIMO/MÁXIMO***************
+*************************MÍNIMO/MÁXIMO***************************
 
 SELECT MIN(precio) AS precioMenor FROM servicios;
 SELECT MAX(precio) AS precioMayor FROM servicios;
 
 
-*********COMO BUSCAR EN UNA BASE DE DATOS*********
+*****************COMO BUSCAR EN UNA BASE DE DATOS*****************
 
 SELECT * FROM servicios WHERE nombre LIKE "Corte%";
 
@@ -230,101 +255,139 @@ SELECT * FROM servicios WHERE nombre LIKE "Corte%";
     %Corte      FINALIZA CON CORTE
     %Corte%     CONTIENE CORTE, DA IGUAL QUE ESTÉ AL INICIO, AL FINAL O EN MEDIO
 
-*****************CONCATENAR COLUMNAS (UNIR)*****************
+//SQL NO DISTINGUE DE MAYUSCULAS Y MINISCULAS
+//RECORDAR QUE LOS CARACTERES BUSCADOS SIEMPRE VAN ENTRE COMILLADO ""
 
-SELECT CONCAT(nombre," ",apellidos) AS nombreCompleto FROM clientes;
-//ME CREA DE NUEVO UN ALIAS VIRTUAL
+//EJERCICIO 4: MOSTRAR LOS PROFESORES QUE SON LICENCIADOS - LICENCIADAS - AMBOS
 
-SELECT * FROM clientes
+SELECT * FROM profesores WHERE titulacion LIKE "licenciado%";
+SELECT * FROM profesores WHERE titulacion LIKE "licenciada%";
+SELECT * FROM profesores WHERE titulacion LIKE "licenciad%";
+
+//EJERCICIO 5: MOSTRAR LOS PROFESORES QUE DEN PSICOLOGIA Y BIOLOGIA
+
+SELECT * FROM profesores WHERE titulacion LIKE "%logía"; 
+
+*********************CONCATENAR COLUMNAS (UNIR)***********************
+
+SELECT CONCAT(nombre," ",apellidos) AS nombreCompleto FROM alumnos;
+//ME CREA DE NUEVO UNA VARIABLE VIRTUAL PARA ALMACENAR LOS DATOS OBTENIDOS QUE NO SE PUEDE REUTILIZAR
+
+
+SELECT * FROM alumnos
 WHERE CONCAT(nombre," ",apellidos) LIKE "%Juan Bartolo%";
 
-SELECT nombre, apellidos, CONCAT(nombre," ",apellidos) as nombreCompleto FROM clientes;
+//SELECCIONO TODO LOS ALUMNOS DE LA TABLA ALUMNOS
+//CUANDO CONCATENANDO NOMBRE, ESPACIO Y APELLIDO SEA IGUAL A JUAN BERTOLO, IMPRIMA LA PANTALLA
+
+
+SELECT nombre, apellidos, CONCAT(nombre," ",apellidos) as nombreCompleto FROM alumnos;
+
 //ME AÑADE UNA COLUMNA NUEVA CON LA CONCATENACIÓN, PERO ES VIRTUAL
 //SIEMPRE QUE CREO UN ALIAS ES VIRTUAL, NO SE ALMACENA EN MI TABLA
 
-*********MUTIPLES CONDICIONES*********
+**************************MUTIPLES CONDICIONES**************************
 
-SELECT * FROM reservas WHERE id IN(1,3,4);
+SELECT * FROM alumnos WHERE id IN(1,3,4);
 //CON EL IN LE DAMOS MÚLTIPLES VALORES
 
-SELECT * FROM reservas WHERE fecha="2023-03-29" AND id>3;
+SELECT * FROM alumnos WHERE fecha="2023-03-29" AND id>3;
 //EL OPERADOR AND ME PERMITE APLICAR MÚLTIPLES CONDICIONES
 
+//EJERCICIO 6: SELECCIONAR LOS ALUMNOS QUE SON DEL 2002 Y QUE SON DEL CURSO ID 10
+SELECT * FROM alumnos WHERE YEAR(fechanacimiento)=2002 and idcurso=10;
+
+//EJERCICIO 7: SELECCIONAR LOS ALUMNOS QUE TIENEN CURSO ID 10, 8 Y 7
+SELECT * FROM alumnos WHERE YEAR(fechanacimiento)=2002 and idcurso IN(10,8,7);
 
 ******************************************************************************************************************
-    REGLAS DE NORMALIZACION
-    OPTIMIZAR BASE DE DATOS EN FUNCION A UNAS REGLAS YA DEFINIDAS
+****************************REGLAS DE NORMALIZACION****************************
 
-        HAY QUE APLICARLAS EN ORDEN
+OPTIMIZAR BASE DE DATOS EN FUNCION A UNAS REGLAS YA DEFINIDAS
 
-        1NF. CADA COLUMNA SOLO UN VALOR
-        2NF. RELACION ENTRE COLUMNAS. LLAVES PRIMARIA MISMO TIPO DATO QUE LA FORANEA
-        3NF. LOS DATOS QUE NO FORMAN PARTE DE LA LLAVE PRIMARIA. CREAR TABLAS PARA EVITAR REGISTROS DUPLICADOS
+HAY QUE APLICARLAS EN ORDEN
 
-        Primera forma normal
-            -Elimine los grupos repetidos de las tablas individuales.
-            -Cree una tabla independiente para cada conjunto de datos relacionados.
-            -Identifique cada conjunto de datos relacionados con una clave principal.
-        Segunda forma normal
-            -Cree tablas independientes para conjuntos de valores que se apliquen a varios registros.
-            -Relacione estas tablas con una clave externa.
-        Tercera forma normal
-            -Elimine los campos que no dependan de la clave.
+1NF - CADA COLUMNA SOLO UN VALOR
+2NF - RELACION ENTRE COLUMNAS. LLAVES PRIMARIA MISMO TIPO DATO QUE LA FORANEA
+3NF - LOS DATOS QUE NO FORMAN PARTE DE LA LLAVE PRIMARIA. CREAR TABLAS PARA EVITAR REGISTROS DUPLICADOS
 
-        EXISTE 5, PERO LAS 3 PRIMERAS SON LAS MAS IMPORTANTES
+Primera forma normal
+-Elimine los grupos repetidos de las tablas individuales.
+-Cree una tabla independiente para cada conjunto de datos relacionados.
+-Identifique cada conjunto de datos relacionados con una clave principal(PRIMARY KEY).
 
+Segunda forma normal
+-Cree tablas independientes para conjuntos de valores que se apliquen a varios registros.
+-Relacione estas tablas con una clave externa (FOREIGN KEY)
 
-        DENORMALIZACION
-            SE PUEDEN ROMPER EN ALGUN MOMENTOS LAS REGLAS DE NORMALIZACION
-            PERO NO QUIERE DECIR QUE POR ELLO ESTÉ MAL LA BASE DE DATOS
+Tercera forma normal
+-Elimine los campos que no dependan de la clave.
 
+EXISTE 5, PERO LAS 3 PRIMERAS SON LAS MAS IMPORTANTES
 
-    CARDINALIDAD Y DIAGRAMAS ER (ENTIDAD RELACION)
-        ME PERMITEN VER DE MANERA VISUAL CUAL ES SU RELACION
+DENORMALIZACION
+SE PUEDEN ROMPER EN ALGUN MOMENTOS LAS REGLAS DE NORMALIZACION
+PERO NO QUIERE DECIR QUE POR ELLO ESTÉ MAL LA BASE DE DATOS
 
-        PONER DIAPOSITIVA27
+CARDINALIDAD Y DIAGRAMAS ER (ENTIDAD RELACION)
+ME PERMITEN VER DE MANERA VISUAL CUAL ES SU RELACION
 
-        CARDINALIDAD, NUMERO MAXIMO DE VECES QUE UNA TABLA SE RELACIONA CON OTRA
-            UNO A MUCHOS
-            UNO A UNO
-            MUCHOS A UNO
-
-        !!!!!!!!!!!!!!!!
-        EJERCICIO
-        HACER EL DIAGRAMA ER DE LA BASE DE DATOS DE AEROPUERTO
+CARDINALIDAD
+NUMERO MAXIMO DE VECES QUE UNA TABLA SE RELACIONA CON OTRA
+UNO A MUCHOS
+UNO A UNO
+MUCHOS A UNO
 
 
-
-        VAMOS A EMPEZAR A UNIR TABLAS, JOIN
-
-        PARTIMOS DE LAS TABLAS RESERVAS Y CLIENTES
-
-                SELECT * FROM reservas 
-                INNER JOIN clientes ON clientes.id = reservas.idCliente;
-
-                INNER JOIN SOLO ME MUESTRA CUANDO TENGAMOS VALORES
-                LEFT JOIN PRIMERO CONSULTA citas Y AÑADE VALORES A LAS QUE TENGA
-                INNER Y LEFT TIENEN EL MISMO RESULTADO
-
-                RIGHT JOIN PRIMERO CONSULTA clientes Y AÑADE VALORES A LAS QUE TENGA
+************************************************************************************************************
 
 
+***********************************JOIN = UNIR TABLAS***************************************
+UNIMOS ALUMNOS Y CADA CURSO CON SU ALUMNO CORRESPONDIENTE
 
-                UNIR DOS O MAS TABLAS CON EL JOIN
-
-                SELECT * FROM reservas 
-                LEFT JOIN reservas ON reservas.idCliente = clientes.id
-                LEFT JOIN servicios ON servicios.idServicio = reservas.idServicio;
-
-                MULTIPLES JOIN
-                HACER UN JOIN A UNA TABLA QUE YA TIENE UN JOIN
+SELECT * FROM alumnos INNER JOIN cursos ON cursos.id = alumnos.idcurso; 
+//INNER JOIN = UNIR 
+//DE LA TABLA CURSOS
+//ON = DONDE
+//EL curso.id Y QUE SE UNA (=) A alumnos.idcurso;
 
 
-        
+INNER JOIN SOLO ME MUESTRA CUANDO TENGAMOS VALORES
+SELECT * FROM alumnos LEFT JOIN cursos ON cursos.id = alumnos.idcurso;
+LEFT JOIN PRIMERO CONSULTA alumnos Y AÑADE VALORES A LAS QUE TENGA
+INNER Y LEFT TIENEN EL MISMO RESULTADO
+
+SELECT * FROM alumnos RIGHT JOIN cursos ON cursos.id = alumnos.idcurso; Y AÑADE VALORES A LAS QUE TENGA
 
 
 
+UNIR DOS O MAS TABLAS CON EL JOIN
 
+ SELECT * FROM alumnos INNER JOIN cursos ON cursos.id = alumnos.idcurso
+    -> INNER JOIN profesores ON profesores.id = cursos.idtutor;
+
+MULTIPLES JOIN
+HACER UN JOIN A UNA TABLA QUE YA TIENE UN JOIN
+
+SELECT alumnos.nombre AS nombreAlumno, profesores.nombre AS nombreProfe FROM alumnos INNER JOIN cursos ON cursos.id = alumnos.idcurso
+-> INNER JOIN profesores ON profesores.id = cursos.idtutor;
+
+***************************************************************************************************************
+
+EJERCICIO 8:A QUE HORA TIENE CLASE CADA ALUMNO, NOMBRE Y APELLIDOS DEL ALUMNO Y DE LA HORA Y DIA DE LA SEMANA 
+
+ SELECT alumnos.nombre AS alumnoNombre, alumnos.apellidos AS alumnoApellido, horarios.hora AS horaClase, horarios.diasemana AS diaSemana FROM alumnos
+-> INNER JOIN cursos ON alumnos.idcurso = cursos.id 
+-> INNER JOIN asignaturas ON asignaturas.idcurso = cursos.id
+-> INNER JOIN horarios ON horarios.idasignatura = asignaturas.id;
+
+//COMIENZO NOMBRANDO LOS DATOS DE LA TABLA ALUMNOS Y HORARIOS, DANDOLE UNA VARIABLE DIGITAL
+//COMIENZO A UNIR LAS TABLAS COMENZANDO DESDE ALUMNOS, INNER JOIN LA TABLA "cursos" DONDE(ON) alumnos.idcurso COINCIDE CON EL curso.id QUE ES LO QUE COMPARTE
+//A ESA TABLA LE AGREGO LA TABLA (INNERJOIN) QUE COMPARTE INFORMACION QUE ES asignaturas. DONDE(ON) asignaturas.idcurso COINCIDE CON asignaturas.id
+//POR ULTIMO GRACIAS A ASIGNATURAS PUEDO LLEGAR A LA TABLA horarios, AGREGO CON INNER JOIN la tabla horarios DONDE (ON) horarios.idasignatura COINCIDA CON = asignaturas.id;
+
+
+//EJERCICIO 9: HACER EL DIAGRAMA ER DE LA BASE DE DATOS DE AEROPUERTO
 
 
 */
